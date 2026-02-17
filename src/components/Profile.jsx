@@ -124,6 +124,7 @@ const Profile = () => {
   const handleSave=async () =>{
 
     //validtion
+
     let validation=validateForm(name, role, about, wantedSkills, offeredSkills, goal);
     if(validation){
       setError(validation);
@@ -144,8 +145,10 @@ const Profile = () => {
       goal
     },{withCredentials:true})
     .then((res)=>{
+
         let user=res.data.data
         dispatch(setSuccess(user))
+        setError(null);
         setIsEdit(!isEdit)
     }).catch((err)=>{
         console.log(err.response.data)

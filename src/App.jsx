@@ -9,6 +9,10 @@ import ProtectedRoutes from './ProtectedRoutes'
 import NavBar from './components/NavBar'
 import Profile from './components/Profile'
 import LandingPage from './components/LandingPage'
+import Dashboard from './components/Dashboard'
+import MyRequests from './components/MyRequests'
+import Messages from './components/Messages'
+import FindMentors from './components/FindMentors'
 function App() {
   const dispatch=useDispatch()
   const [toggle,setToggle]=useState(false);
@@ -35,7 +39,10 @@ function App() {
       <Route path='authForm' element={<><NavBar/><AuthForm/></>} />
       <Route element={<ProtectedRoutes/>} >
         <Route element={<Body/>}  >
-          <Route path='/home' index  element={<h1>Home</h1>} />
+          <Route path='/dashboard' index  element={<Dashboard/>} />
+          <Route path='/requests' index  element={<MyRequests/>} />
+          <Route path='/chat' index  element={<Messages/>} />
+          <Route path='/mentors' index  element={<FindMentors/>} />
           <Route path='/profile' element={<Profile/>} />
         </Route>
       </Route>
