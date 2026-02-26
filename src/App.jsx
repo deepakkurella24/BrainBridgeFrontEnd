@@ -7,12 +7,20 @@ import { useDispatch } from 'react-redux'
 import { setFailure, setSuccess } from './utils/userSlice'
 import ProtectedRoutes from './ProtectedRoutes'
 import NavBar from './components/NavBar'
-import Profile from './components/Profile'
+// import Profile from './components/Profile'
+import EditProfile from './components/EditProfile'
 import LandingPage from './components/LandingPage'
 import Dashboard from './components/Dashboard'
 import MyRequests from './components/MyRequests'
 import Messages from './components/Messages'
 import FindMentors from './components/FindMentors'
+import SearchResults from './components/SearchResults'
+import MyProfile from './components/MyProfile'
+import AddProjectForm from './components/AddProjectForm'
+import Profile from './components/Profile'
+import ChatLayout from './components/ChatLayout'
+import ChatWindow from './components/ChatWindow'
+import EmptyChatState from './components/EmptyChatState'
 function App() {
   const dispatch=useDispatch()
   const [toggle,setToggle]=useState(false);
@@ -41,9 +49,18 @@ function App() {
         <Route element={<Body/>}  >
           <Route path='/dashboard' index  element={<Dashboard/>} />
           <Route path='/requests' index  element={<MyRequests/>} />
-          <Route path='/chat' index  element={<Messages/>} />
+          <Route path="/chat" element={<ChatLayout />}>
+         
+            <Route index element={<EmptyChatState />} />
+
+            <Route path=":chatId" element={<ChatWindow />} />
+          </Route>
           <Route path='/mentors' index  element={<FindMentors/>} />
-          <Route path='/profile' element={<Profile/>} />
+          <Route path='/profile' element={<MyProfile/>} />
+          <Route path='/profile-edit' element={<EditProfile/>} />
+          <Route path='/results' element={<SearchResults />} />
+          <Route path='/add-project-form' element={<AddProjectForm />} />
+          <Route path='/view/:id' element={<Profile />} />
         </Route>
       </Route>
 

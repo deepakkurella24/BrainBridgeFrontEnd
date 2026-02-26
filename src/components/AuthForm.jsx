@@ -60,7 +60,7 @@ function AuthForm() {
         },{withCredentials:true})
         .then((res)=>{
             
-            let user=res.data.data
+            let user=res.data.data;
             console.log(user)
             dispatch(setSuccess(user))
             // navigate('/')
@@ -142,7 +142,7 @@ function AuthForm() {
 
             <div className="text-sm md:text-base mb-2.5">
                 <span className="text-black">
-                    {!isSignUp ? "Have an Account?" : "New to SkillSwap?"}
+                    {!isSignUp ? "Have an Account?" : "New to ElevateU?"}
                 </span>
 
                 <span

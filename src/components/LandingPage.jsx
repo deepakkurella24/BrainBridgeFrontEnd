@@ -15,7 +15,7 @@ export default function LandingPage() {
       <nav className="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2 text-blue-600 font-bold text-2xl">
           <GitPullRequest size={28} />
-          <span>SkillSwap</span>
+          <span>ElevateU</span>
         </div>
         <div className="flex gap-4">
           {/* <button 
@@ -35,7 +35,7 @@ export default function LandingPage() {
 
       <main className="flex-1 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto w-full py-12">
         <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
-          SkillSwap: <span className="text-blue-600">Exchange knowledge,</span> build together.
+          ElevateU: <span className="text-blue-600">Exchange knowledge,</span> build together.
         </h1>
         <p className="text-lg text-slate-500 mb-10 max-w-2xl">
           Connect with experts around the world. Teach what you love, learn what you need. 
@@ -85,7 +85,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="py-8 text-center text-slate-400 text-sm border-t border-slate-100 mt-8">
-        <p>© 2024 SkillSwap Platform. All rights reserved.</p>
+        <p>© 2024 ElevateU Platform. All rights reserved.</p>
       </footer>
     </div>
   );
