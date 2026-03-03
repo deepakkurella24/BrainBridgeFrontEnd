@@ -70,7 +70,7 @@ export default function AddProjectForm() {
               setSuggestions(cache[collabInput])
           }
           else{
-            axios.get(`http://localhost:7777/user/search-suggestion?q=${collabInput}`,{withCredentials:true})
+            axios.get(`http://192.168.137.1:7777/user/search-suggestion?q=${collabInput}`,{withCredentials:true})
             .then((res)=>{
               const data=res.data.data;
               setSuggestions(data[1]);
@@ -178,7 +178,7 @@ export default function AddProjectForm() {
     
     // console.log("Saving Project:", newProject);
     
-    axios.post('http://localhost:7777/project',{
+    axios.post('http://192.168.137.1:7777/project',{
        description:desc, projectURL:liveLink, gitHubURL:githubLink, techStack, collaborators:resCollaborators, projectImgURL:imageUrl
     },{withCredentials:true})
     .then((res)=>{

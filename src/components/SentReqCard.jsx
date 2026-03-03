@@ -8,7 +8,7 @@ const SentReqCard = ({req,onCancel}) => {
   // console.log(req);
 
   // function handleCancle(id){
-  //   axios.post(`http://localhost:7777/request/cancel/${id}`,{},{withCredentials:true})
+  //   axios.post(`http://192.168.137.1:7777/request/cancel/${id}`,{},{withCredentials:true})
   //   .then((res)=>{
   //     console.log(res.data.message)
   //     remove(id);

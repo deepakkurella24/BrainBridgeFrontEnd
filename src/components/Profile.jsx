@@ -39,7 +39,7 @@ const Profile = () => {
   }
    function handleSendSwapReq(id){
     // setShowReq(!show)
-    axios.post(`http://localhost:7777/request/send/${id}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/send/${id}`,{},{withCredentials:true})
     .then((res)=>{
       console.log(res.data.message)
 
@@ -60,7 +60,7 @@ const Profile = () => {
   function handleCancle(id){
  
     // setShowReq(!show)
-    axios.post(`http://localhost:7777/request/cancel/${id}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/cancel/${id}`,{},{withCredentials:true})
     .then((res)=>{
       console.log(res.data.message)
 
@@ -75,7 +75,7 @@ const Profile = () => {
   function handleReview(id,status,requestId){
     // console.log(requestId,'requestId');
     console.log(requestId)
-    axios.post(`http://localhost:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
     .then((res)=>{
       // removeRecieved(requestId)
       console.log(res.data);
@@ -91,12 +91,12 @@ const Profile = () => {
       top: 0,
       behavior: "smooth",
     });
-    axios.get(`http://localhost:7777/view/${userId}`,{withCredentials:true})
+    axios.get(`http://192.168.137.1:7777/view/${userId}`,{withCredentials:true})
     .then((res)=>{
       setUser(res.data.data);
       setLoading(false)
     })
-    axios.get(`http://localhost:7777/project/user/${userId}`,{withCredentials:true})
+    axios.get(`http://192.168.137.1:7777/project/user/${userId}`,{withCredentials:true})
     .then((res)=>{
       setProjects(res.data.data.reverse())
       setLoading2(false)

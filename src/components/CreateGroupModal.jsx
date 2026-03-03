@@ -32,7 +32,7 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
     };
     
     console.log("Creating group:", );
-    axios.post('http://localhost:7777/chat/create-group',{
+    axios.post('http://192.168.137.1:7777/chat/create-group',{
         groupName: groupName,
         members: selectedUsers
     },{withCredentials:true})
@@ -55,7 +55,7 @@ const CreateGroupModal = ({ onClose, onCreate }) => {
         const timeOut=setTimeout(()=>{
 
 
-            axios.get(`http://localhost:7777/user/search-suggestion-connections?q=${searchInput}`,{withCredentials:true})
+            axios.get(`http://192.168.137.1:7777/user/search-suggestion-connections?q=${searchInput}`,{withCredentials:true})
             .then((res)=>{
                 const data=res.data.data;
                 setSuggestions(data[1]);

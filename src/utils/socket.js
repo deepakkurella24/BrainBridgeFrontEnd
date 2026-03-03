@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:7777", {
+const socket = io("http://192.168.137.1:7777", {
   withCredentials: true,
 });
 

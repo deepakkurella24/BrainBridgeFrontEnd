@@ -126,7 +126,7 @@ const EditProfile = () => {
     setRole(role.trim());
     setGoal(goal.trim());
 
-    axios.patch('http://localhost:7777/profile/edit',{
+    axios.patch('http://192.168.137.1:7777/profile/edit',{
       name,
       role,
       profileURL:imageUrl,

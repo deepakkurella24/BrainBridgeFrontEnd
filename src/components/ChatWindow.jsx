@@ -35,23 +35,39 @@ const ChatWindow = () => {
 
   useEffect(() => {
     if (!chatId) return;
-    axios.get(`http://localhost:7777/chat/details/${chatId}`, { withCredentials: true })
+    axios.get(`http://192.168.137.1:7777/chat/details/${chatId}`, { withCredentials: true })
       .then((res) => setActiveContact(res.data.data))
       .catch((err) => console.error(err));
   }, [chatId]);
 
 
+  // useEffect(() => {
+  //   if (!chatId || !user?._id) return;
+
+  //   axios.get(`http://192.168.137.1:7777/chat/${chatId}`, { withCredentials: true })
+  //     .then((res) => setMessages(res.data.data))
+  //     .catch((err) => console.error(err));
+
+  //   socket.emit("open_chat", { userId: user._id, withUserId: chatId });
+
+  //   return () => {
+  //     socket.emit("leave_chat", user._id);
+  //   };
+  // }, [chatId, user?._id]);
   useEffect(() => {
     if (!chatId || !user?._id) return;
 
-    axios.get(`http://localhost:7777/chat/${chatId}`, { withCredentials: true })
+    axios.get(`http://192.168.137.1:7777/chat/${chatId}`, { withCredentials: true })
       .then((res) => setMessages(res.data.data))
       .catch((err) => console.error(err));
 
     socket.emit("open_chat", { userId: user._id, withUserId: chatId });
 
     return () => {
-      socket.emit("leave_chat", user._id);
+      // Added safety check
+      // if (user?._id) {
+        socket.emit("leave_chat", user._id);
+      // }
     };
   }, [chatId, user?._id]);
 
@@ -89,7 +105,8 @@ useEffect(() => {
     else{
       socket.emit("send_message", {
         senderId: user._id,
-        receiverId: activeContact.id, 
+        receiverId: activeContact.id,
+        // conversationId:chatId,
         text: inputText.trim(),
       });
     }

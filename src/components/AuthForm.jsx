@@ -36,7 +36,7 @@ function AuthForm() {
         if(validation) return;
 
         
-        axios.post('http://localhost:7777/auth/signUp',{
+        axios.post('http://192.168.137.1:7777/auth/signUp',{
             name:firstName.current.value+' '+lastName.current.value,
             email :email.current.value ,
             password:password.current.value
@@ -54,7 +54,7 @@ function AuthForm() {
 
         
         
-        axios.post('http://localhost:7777/auth/logIn',{
+        axios.post('http://192.168.137.1:7777/auth/logIn',{
             email :email.current.value ,
             password:password.current.value
         },{withCredentials:true})
@@ -142,7 +142,7 @@ function AuthForm() {
 
             <div className="text-sm md:text-base mb-2.5">
                 <span className="text-black">
-                    {!isSignUp ? "Have an Account?" : "New to ElevateU?"}
+                    {!isSignUp ? "Have an Account?" : "New to BrainBridge?"}
                 </span>
 
                 <span

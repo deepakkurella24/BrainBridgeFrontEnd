@@ -11,7 +11,7 @@ const Card = ({u,parent,updateTo}) => {
    console.log(u._id)
    function handleSendSwapReq(id){
     // setShowReq(!show)
-    axios.post(`http://localhost:7777/request/send/${id}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/send/${id}`,{},{withCredentials:true})
     .then((res)=>{
       console.log(res.data.message)
       // setShowReq(false);
@@ -29,7 +29,7 @@ const Card = ({u,parent,updateTo}) => {
   function handleCancle(id){
  
     // setShowReq(!show)
-    axios.post(`http://localhost:7777/request/cancel/${id}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/cancel/${id}`,{},{withCredentials:true})
     .then((res)=>{
       console.log(res.data.message)
       // setShowReq(true);
@@ -48,7 +48,7 @@ const Card = ({u,parent,updateTo}) => {
   function handleReview(id,status,requestId){
     // console.log(requestId,'requestId');
     console.log(requestId)
-    axios.post(`http://localhost:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
     .then((res)=>{
       // removeRecieved(requestId)
       console.log(res.data);

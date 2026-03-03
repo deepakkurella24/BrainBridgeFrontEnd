@@ -23,7 +23,7 @@ const SearchResults = () => {
 
     useEffect(()=>{
         // setLoading(true);
-        axios.get(`http://localhost:7777/user/search?q=${query}`,{withCredentials:true})
+        axios.get(`http://192.168.137.1:7777/user/search?q=${query}`,{withCredentials:true})
         .then((res)=>{
             setLoading(false);
             setUsers(res.data.data);

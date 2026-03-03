@@ -21,7 +21,7 @@ const ProjectCard = ({ project, user,userId,isMyProfile,removeProject }) => {
   }
 
   const handleRemoveProject=(id)=>{
-    axios.post(`http://localhost:7777/project/remove/`+id,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/project/remove/`+id,{},{withCredentials:true})
     .then((res)=>{
       console.log(res.data);
       removeProject(id);

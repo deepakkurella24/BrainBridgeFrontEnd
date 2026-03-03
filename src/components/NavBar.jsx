@@ -9,7 +9,7 @@ const NavBar = () => {
         <div className="flex-1">
             <div className="flex items-center gap-2 text-blue-600 font-bold text-2xl cursor-pointer" onClick={()=>navigate('/home')} >
                 {/* <GitPullRequest size={28} /> */}
-                <span>ElevateU</span>
+                <span>BrainBridge</span>
             </div>
         </div>
         </div>

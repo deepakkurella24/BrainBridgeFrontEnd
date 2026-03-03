@@ -30,7 +30,7 @@ const ConnectedCard = ({user,remove}) => {
   const navigate=useNavigate()
   function handleRemoveCon(id){
     
-    axios.post(`http://localhost:7777/request/remove/${id}`, {}, {withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/remove/${id}`, {}, {withCredentials:true})
     .then((res)=>{
       console.log(res.data.message);
       remove(id);
@@ -58,7 +58,7 @@ const ConnectedCard = ({user,remove}) => {
        
        <div className="flex items-center gap-2">
          <button className="p-2.5 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white rounded-xl transition-all shadow-sm active:scale-95"
-         onClick={()=>navigate('/chat/'+user._id)}
+         onClick={()=>navigate('/chat/'+user.conversationId)}
          >
            <MessageSquare size={18} strokeWidth={2.5} />
          </button>

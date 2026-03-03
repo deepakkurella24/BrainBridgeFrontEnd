@@ -26,7 +26,7 @@ function App() {
   const [toggle,setToggle]=useState(false);
 
   useEffect(()=>{
-    axios.get('http://localhost:7777/auth/check',{withCredentials:true})
+    axios.get('http://192.168.137.1:7777/auth/check',{withCredentials:true})
     .then((res)=>{
         let user=res.data.data
         dispatch(setSuccess(user))

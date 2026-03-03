@@ -7,7 +7,7 @@ const EditGroupModal = ({ group, onClose, onSave }) => {
   const [groupName, setGroupName] = useState(group?.name || "");
   const [members, setMembers] = useState(group?.members || []);
   const userId=useSelector((store)=>store.userState.user._id);
-
+  const [error,setError]=useState(null);
   const [isAddingMember, setIsAddingMember] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -27,21 +27,28 @@ const EditGroupModal = ({ group, onClose, onSave }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!groupName.trim()) return;
+    if (!groupName.trim()){ setError('invalid form');return;}
     
-    console.log("Saving group updates:", { name: groupName, members });
+    // console.log("Saving group updates:", { name: groupName, members });
     // TODO: Emit socket event or Axios post to update group settings
-    
-    if (onSave) onSave({ ...group, name: groupName, members });
-    onClose();
+        axios.post(`http://192.168.137.1:7777/chat/group/${group.id}/edit`,{name: groupName,members:members.map((member)=>member.id || member._id)},{withCredentials:true})
+        .then((res)=>{
+          setError(null);
+          console.log(res.data.data);
+          onSave({ ...group, name: groupName, members });
+          onClose();
+
+        })
+        .catch((err)=>setError(err.data.message))
+
   };
 
   useEffect(()=>{
-    if (!searchInput) return;
+    if (!searchInput){ return;}
     const timeOut=setTimeout(()=>{
 
 
-        axios.get(`http://localhost:7777/user/search-suggestion-connections?q=${searchInput}`,{withCredentials:true})
+        axios.get(`http://192.168.137.1:7777/user/search-suggestion-connections?q=${searchInput}`,{withCredentials:true})
         .then((res)=>{
         const data=res.data.data;
         setSuggestions(data[1]);
@@ -135,7 +142,7 @@ const EditGroupModal = ({ group, onClose, onSave }) => {
                         }}
                         className="w-full text-left px-3 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-blue-600 font-medium transition-colors border-b border-slate-50 last:border-0 flex items-center gap-3"
                       >
-                        <img src={user.img} alt={user.name} className="w-6 h-6 rounded-full object-cover shadow-sm" />
+                        <img src={user.profileURL} alt={user.name} className="w-6 h-6 rounded-full object-cover shadow-sm" />
                         {user.name}
                       </button>
                     ))}
@@ -175,13 +182,20 @@ const EditGroupModal = ({ group, onClose, onSave }) => {
               )}
             </div>
           </div>
-          
+            {error && (
+              <div className="absolute bottom-16 w-full flex items-center justify-center gap-2 text-[10px] text-red-500 font-bold bg-red-50 py-1.5 rounded-lg animate-in fade-in slide-in-from-bottom-2">
+                <AlertCircle size={12} />
+                {error}
+              </div>
+            )}
           {/* Actions */}
           <div className="flex gap-3 pt-4 border-t border-slate-100 mt-auto">
             <button type="button" onClick={onClose} className="flex-1 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-bold transition-all">
               Cancel
             </button>
-            <button type="submit" disabled={!groupName.trim()} className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold shadow-lg transition-all active:scale-[0.98] ${!groupName.trim() ? 'bg-slate-200 text-slate-400 shadow-none cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200'}`}>
+            <button type="submit" disabled={!groupName.trim()} className={`flex-[2] flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold shadow-lg transition-all active:scale-[0.98] ${!groupName.trim() ? 'bg-slate-200 text-slate-400 shadow-none cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200'}`}
+            
+            >
               <Check size={18} strokeWidth={3} />
               Save Changes
             </button>

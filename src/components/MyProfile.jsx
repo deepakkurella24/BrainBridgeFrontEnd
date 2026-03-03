@@ -25,7 +25,7 @@ const MyProfile = () => {
 
 
   useEffect(()=>{
-    axios.get(`http://localhost:7777/project/user/${user._id}`,{withCredentials:true})
+    axios.get(`http://192.168.137.1:7777/project/user/${user._id}`,{withCredentials:true})
     .then((res)=>{
       setLoading(false)
       setProjects(res.data.data.reverse())

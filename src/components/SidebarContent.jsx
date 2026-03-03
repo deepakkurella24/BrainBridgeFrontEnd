@@ -29,7 +29,7 @@ const SidebarContent = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
 
     const handleLogOut=()=>{
         axios.post(
-        'http://localhost:7777/auth/logOut',
+        'http://192.168.137.1:7777/auth/logOut',
         {},
         { withCredentials: true }
         ).then((res)=>{
@@ -46,7 +46,7 @@ const SidebarContent = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
         {/* Mobile Top Bar - Hidden on /chat so it doesn't overlap the chat header */}
         {!isChat && (
             <div className="md:hidden fixed top-0 left-0 w-full bg-white border-b border-slate-200 z-40 px-4 py-3 flex justify-between items-center shadow-sm">
-                <span className="font-bold text-blue-600 text-xl tracking-tight">ElevateU</span>
+                <span className="font-bold text-blue-600 text-xl tracking-tight">BrainBridge</span>
                 <button 
                     onClick={() => setIsMobileMenuOpen && setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
@@ -83,7 +83,7 @@ const SidebarContent = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
             ${!isChat ? 'md:translate-x-0' : ''}
         `}>
             <div className="p-6 flex items-center justify-between text-blue-600 font-bold text-2xl border-b border-slate-100/50">
-                <span className="tracking-tight">ElevateU</span>
+                <span className="tracking-tight">BrainBridge</span>
                 <button 
                     onClick={() => setIsMobileMenuOpen && setIsMobileMenuOpen(false)}
                     className={`p-1 text-slate-400 hover:text-slate-600 ${!isChat ? 'md:hidden' : ''}`}

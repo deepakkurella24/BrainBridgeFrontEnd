@@ -24,7 +24,7 @@ const MyRequests = () => {
   const [conLoading,setConLoading]=useState(true);
 
   function handleCancle(id){ 
-    axios.post(`http://localhost:7777/request/cancel/${id}`, {}, {withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/cancel/${id}`, {}, {withCredentials:true})
       .then((res)=>{
         console.log(res.data.message);
         remove(id);
@@ -47,7 +47,7 @@ const MyRequests = () => {
 
   function handleSend(status,requestId){
     // console.log(requestId,'requestId');
-    axios.post(`http://localhost:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
+    axios.post(`http://192.168.137.1:7777/request/review/${status}/${requestId}`,{},{withCredentials:true})
     .then((res)=>{
       removeRecieved(requestId)
       console.log(res.data);
@@ -84,7 +84,7 @@ const MyRequests = () => {
   useEffect(()=>{
     if(activeTab==='received'){
       // setLoading(true);
-      axios.get('http://localhost:7777/user/requests',{withCredentials:true})
+      axios.get('http://192.168.137.1:7777/user/requests',{withCredentials:true})
       .then((res)=>{
         setReceived(res.data.data);
         setRecLoading(false);
@@ -97,7 +97,7 @@ const MyRequests = () => {
     }
     else if(activeTab==='sent'){
       // setLoading(true);
-      axios.get('http://localhost:7777/user/sent',{withCredentials:true})
+      axios.get('http://192.168.137.1:7777/user/sent',{withCredentials:true})
       .then((res)=>{
         setSent(res.data.data);
         setRecLoading(true);
@@ -109,7 +109,7 @@ const MyRequests = () => {
       })
     }
     else{
-      axios.get('http://localhost:7777/user/connections',{withCredentials:true})
+      axios.get('http://192.168.137.1:7777/user/connections',{withCredentials:true})
       .then((res)=>{
         // setLoading(false);
         setConnected(res.data.data);

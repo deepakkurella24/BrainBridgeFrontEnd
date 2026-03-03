@@ -28,7 +28,7 @@ const SearchBar = ({text}) => {
             setSuggestions(cache2[searchQuery])
         }
         else{
-          axios.get(`http://localhost:7777/user/names-skills-suggetion?q=${searchQuery}`,{withCredentials:true})
+          axios.get(`http://192.168.137.1:7777/user/names-skills-suggetion?q=${searchQuery}`,{withCredentials:true})
           .then((res)=>{
             const data=res.data.data;
             setSuggestions(data[1]);
@@ -59,7 +59,7 @@ const SearchBar = ({text}) => {
 
 //       axios
 //         .get(
-//           `http://localhost:7777/user/names-skills-suggetion?q=${currentQuery}`,
+//           `http://192.168.137.1:7777/user/names-skills-suggetion?q=${currentQuery}`,
 //           { withCredentials: true }
 //         )
 //         .then((res) => {

@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  Search, MoreVertical, Menu, 
-  Plus,
-  Users
-} from 'lucide-react';
+import { Search, MoreVertical, Menu, Plus, Users } from 'lucide-react';
 import axios from "axios";
 import socket from "../utils/socket";
 import { formatTime } from "../utils/utilities";
@@ -14,30 +10,25 @@ const ChatsSidebar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [chats, setChats] = useState([]);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
-  // const context = useOutletContext();
-  // const setIsMobileMenuOpen = context?.setIsMobileMenuOpen || (() => {});
-  const fetchSidebar = async () => {
-    try {
-      const res = await axios.get("http://localhost:7777/chat/sidebar", { withCredentials: true });
-      setChats(res.data.data);
-    } catch (err) {
-      console.error("Failed to fetch sidebar", err);
-    }
-  };
-  useEffect(() => {
-  const fetchSidebar = async () => {
-    try {
-      const res = await axios.get("http://localhost:7777/chat/sidebar", { withCredentials: true });
-      setChats(res.data.data);
-    } catch (err) {
-      console.error("Failed to fetch sidebar", err);
-    }
-  };
 
-    fetchSidebar();
-    socket.on("sidebar_update", fetchSidebar);
-    return () => socket.off("sidebar_update");
+  // 1. Wrap in useCallback so it maintains the same reference between renders
+  const fetchSidebar = useCallback(async () => {
+    try {
+      const res = await axios.get("http://192.168.137.1:7777/chat/sidebar", { withCredentials: true });
+      setChats(res.data.data);
+    } catch (err) {
+      console.error("Failed to fetch sidebar", err);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchSidebar();
+    
+    socket.on("sidebar_update", fetchSidebar);
+    
+    // 2. Pass the exact function reference to .off()
+    return () => socket.off("sidebar_update", fetchSidebar);
+  }, [fetchSidebar]);
 
   const filteredContacts = chats.filter(c => 
     c.name?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -46,26 +37,19 @@ const ChatsSidebar = () => {
   return (
     <>
       <div className="flex flex-col h-full bg-white border-r border-slate-100 z-10 w-full">
-
         <div className="p-4 sm:p-5 border-b border-slate-100 shrink-0">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              {/* <button 
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 -ml-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors md:hidden"
-              >
-                <Menu size={20} />
-              </button> */}
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">Messages</h2>
             </div>
-            <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
-            onClick={() => setShowCreateGroup(true)}
+            <button 
+              className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+              onClick={() => setShowCreateGroup(true)}
             >
               <Plus size={22} strokeWidth={2.5} />
             </button> 
           </div>
           
-    
           <div className="relative">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
               <Search size={18} />
@@ -132,15 +116,13 @@ const ChatsSidebar = () => {
         <CreateGroupModal 
           onClose={() => setShowCreateGroup(false)} 
           onCreate={() => {
-            console.log("Mock group created successfully!");
             fetchSidebar();
-            // Ideally re-fetch sidebar or optimistic update here
+            setShowCreateGroup(false);
           }} 
         />
       )} 
     </>
   );
 };
-
 
 export default ChatsSidebar;

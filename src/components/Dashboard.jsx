@@ -14,7 +14,7 @@ const Dashboard = () => {
   const dispatch=useDispatch();
 
   function getData(){
-    axios.get(`http://localhost:7777/user/feed?page=${page}&limit=4`,{withCredentials:true})
+    axios.get(`http://192.168.137.1:7777/user/feed?page=${page}&limit=4`,{withCredentials:true})
     .then((res)=>{
       if(page===1) dispatch(setLoading(false));
       let feed=res.data.data;
